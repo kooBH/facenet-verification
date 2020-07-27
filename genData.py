@@ -2,7 +2,6 @@ import os
 import numpy as np
 import itertools
 import torch
-from tqdm import tqdm
 import multiprocessing as mp
 
 def genSameFile(args):

@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# data
+*.facebin
+
+# vertual env
+fb/
+
+# downloaded file
+./data/cifar-10-batches-py
+./data/cifar-10-python.tar.gz
