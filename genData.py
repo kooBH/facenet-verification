@@ -23,8 +23,6 @@ if __name__ == "__main__":
     dict_filedata=dict()
 
     dir_orig = "/home/nas/user/kbh/FaceVerification/original/";
-    #dir_same= "/home/nas/user/kbh/FaceVerification/same/";
-    #dir_diff= "/home/nas/user/kbh/FaceVerification/diff/";
     dir_same= "data/same/";
     dir_diff= "data/diff/";
 
@@ -34,7 +32,7 @@ if __name__ == "__main__":
     for i in filenames :
         key = i[0:3]
         if key in dict_filename.keys():
-            new_val = dict_filename[key].append(i)
+            dict_filename[key].append(i)
         else : 
             dict_filename.update({key:[i]})
 
@@ -48,10 +46,12 @@ if __name__ == "__main__":
     #for c in itertools.combinations(dict_filename['kbh'],2) :
     #    t = dict_filedata[c[0]]-dict_filedata[c[1]]
     #    np.save(dir_same +c[0][0:5]+'_'+c[1][0:5] ,t)
-    pool_same = mp.Pool(processes=num_core)
-    pool_same.map(genSameFile,itertools.combinations(dict_filename['kbh'],2),chunksize=256)
-    pool_same.close()
-    pool_same.join()
+    for name  in dict_filename :
+        print('same : ' + name)
+        pool_same = mp.Pool(processes=num_core)
+        pool_same.map(genSameFile,itertools.combinations(dict_filename[name],2),chunksize=256)
+        pool_same.close()
+        pool_same.join()
 
     # for different faces
     # for a in dict_filename['kbh']:
@@ -59,9 +59,11 @@ if __name__ == "__main__":
     #         t = dict_filedata[a][0:5]-dict_filedata[b][0:5]
     #         np.save(dir_diff ++a+'_'+b ,t)
     #         #print(a + ' and ' + b)
-    pool_diff = mp.Pool(processes=num_core)
-    pool_diff.map(genDiffFile,itertools.product(dict_filename['kbh'],dict_filename['nsh']),chunksize=256)
-    pool_diff.close()
-    pool_diff.join()
+    for comb in itertools.combinations(dict_filename,2):
+        print('diff : ' + comb[0] +' vs '+comb[1] )
+        pool_diff = mp.Pool(processes=num_core)
+        pool_diff.map(genDiffFile,itertools.product(dict_filename[comb[0]],dict_filename[comb[1]]),chunksize=256)
+        pool_diff.close()
+        pool_diff.join()
 
 
