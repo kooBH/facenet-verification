@@ -7,13 +7,13 @@ import multiprocessing as mp
 def genSameFile(args):
     global dict_filedata
     a,b =args
-    t = dict_filedata[a]-dict_filedata[b]
+    t =np.abs(dict_filedata[a]-dict_filedata[b])
     np.save(dir_same +a[0:-8]+'_'+b[0:-8] ,t)
 
 def genDiffFile(args):
     global dict_filedata
     a,b =args
-    t = dict_filedata[a]-dict_filedata[b]
+    t = np.abs(dict_filedata[a]-dict_filedata[b])
     np.save(dir_diff +a[0:-8]+'_'+b[0:-8] ,t)
 
 
@@ -23,8 +23,10 @@ if __name__ == "__main__":
     dict_filedata=dict()
 
     dir_orig = "/home/nas/user/kbh/FaceVerification/original/";
-    dir_same= "/home/nas/user/kbh/FaceVerification/same/";
-    dir_diff= "/home/nas/user/kbh/FaceVerification/diff/";
+    #dir_same= "/home/nas/user/kbh/FaceVerification/same/";
+    #dir_diff= "/home/nas/user/kbh/FaceVerification/diff/";
+    dir_same= "data/same/";
+    dir_diff= "data/diff/";
 
     filenames = os.listdir(dir_orig);
     num_core = mp.cpu_count()
