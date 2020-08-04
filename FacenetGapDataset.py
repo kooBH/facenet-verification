@@ -10,21 +10,33 @@ class FGD():
     def __init__(self,dir_root,test_ratio=0.3):
         self.dir_root = dir_root
         self.test_ratio = test_ratio
+
         # Read 
+        self.df_file = pd.DataFrame(columns={'file'})
 
-        self.pd_file = pd.DataFrame(columns={'file'})
-        self.pd_file = self.pd_file.\
-            append(pd.DataFrame({'file':\
+        df_same = pd.DataFrame({'file':\
             [ dir_root+'/same/' + x for x in os.listdir(dir_root + '/same')]\
-            ,'label':1}),ignore_index=True,sort=True)
-            
-        self.pd_file = self.pd_file.\
-            append(pd.DataFrame({'file':\
+            ,'label':1})
+        df_diff = pd.DataFrame({'file':\
             [ dir_root+'/diff/' + x for x in os.listdir(dir_root + '/diff')]\
-            ,'label':0}),ignore_index=True,sort=True)
+            ,'label':0})
 
-        # Distribute
-        train, test = train_test_split(self.pd_file, test_size=test_ratio)
+        # adjust distribution
+
+        ratio = len(df_same)/len(df_diff)
+        if ratio > 1 :
+            ratio = 1
+        print('ratio : ' + str(ratio))
+        df_diff = df_diff.sample(frac = ratio)
+
+        self.df_file = self.df_file.append(df_same,ignore_index=True,sort=True)
+        self.df_file = self.df_file.append(df_diff,ignore_index=True,sort=True)
+
+        print('label 0 : ' + str(len(self.df_file[self.df_file['label'] == 0])))
+        print('label 1 : ' + str(len(self.df_file[self.df_file['label'] == 1])))
+
+        # separte
+        train, test = train_test_split(self.df_file, test_size=test_ratio)
         self.train = train
         self.test = test
 
