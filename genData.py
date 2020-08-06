@@ -16,9 +16,7 @@ def genDiffFile(args):
     t = np.abs(dict_filedata[a]-dict_filedata[b])
     np.save(dir_diff +a[0:-8]+'_'+b[0:-8] ,t)
 
-
 if __name__ == "__main__":
-
     dict_filename=dict()
     dict_filedata=dict()
 
@@ -65,5 +63,4 @@ if __name__ == "__main__":
         pool_diff.map(genDiffFile,itertools.product(dict_filename[comb[0]],dict_filename[comb[1]]),chunksize=256)
         pool_diff.close()
         pool_diff.join()
-
 
