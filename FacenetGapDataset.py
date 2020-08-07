@@ -10,7 +10,13 @@ class FGD():
     def __init__(self,dir_root,test_ratio=0.3):
         self.dir_root = dir_root
         self.test_ratio = test_ratio
+        self.load()
 
+
+
+    def load(self):
+        dir_root = self.dir_root
+        test_ratio = self.test_ratio
         # Read 
         self.df_file = pd.DataFrame(columns={'file'})
 
@@ -44,6 +50,10 @@ class FGD():
         self.trainset = FGD_train(train)
         self.testset = FGD_test(test)
 
+
+
+        
+    
     def get(self):
         return self.trainset, self.testset
 
@@ -51,7 +61,6 @@ class FGD_train(torch.utils.data.Dataset):
     def __init__(self,df):
         self.pd_train = df
         self.length = len(self.pd_train)
-        print('FacenetGapTrain')
         return
     
     def __len__(self):
@@ -72,7 +81,6 @@ class FGD_test(torch.utils.data.Dataset):
     def __init__(self,df):
         self.pd_test = df
         self.length = len(self.pd_test)
-        print('FacenetGapTest')
         return
     
     def __len__(self):

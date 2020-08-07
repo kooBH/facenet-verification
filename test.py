@@ -10,7 +10,8 @@ def getDist(a,b):
 
 net = FGN.FGN()
 
-net.load_state_dict(torch.load('./state/FG_acc_92.47634433417954.pt'))
+net.load_state_dict(torch.load('./'))
+#net.load_state_dict('./traced-state.pt')
 
 a = '/home/nas/user/kbh/FaceVerification/original/kjh43.facebin'
 #b = '/home/nas/user/kbh/FaceVerification/original/kbh1.facebin'

@@ -20,7 +20,8 @@ if __name__ == "__main__":
     dict_filename=dict()
     dict_filedata=dict()
 
-    dir_orig = "/home/nas/user/kbh/FaceVerification/original/";
+    #dir_orig = "/home/nas/user/kbh/FaceVerification/original/";
+    dir_orig = "/home/kbh/FacenetDB/database/";
     dir_same= "data/same/";
     dir_diff= "data/diff/";
 

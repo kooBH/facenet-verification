@@ -82,8 +82,10 @@ class FGT():
         self.net.load_state_dict(torch.load(path))
 
     def save(self,path,acc):
-        path = path+"/FG_acc_{}.pt".format(acc)
-        torch.save(self.net.state_dict(),path)
+        path1 = path+"/state_acc_{:.4f}.pt".format(acc)
+        torch.save(self.net.state_dict(),path1)
+        path2 = path+"/net_acc_{:.4f}.pt".format(acc)
+        torch.save(self.net,path2)
         return path
 
 
