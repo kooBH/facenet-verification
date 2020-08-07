@@ -21,7 +21,7 @@ class FGT():
         for epochs in range(self.num_epoch):
             train_loss,train_acc = self.epoch()
             test_loss, test_acc  = self.inference()
-            print("epoch {} | train [{} , {}] | test [{} , {}]".format(epochs,train_loss,train_acc,test_loss,test_acc))
+            print("epoch {} | train [{:.4f} , {:.4f}] | test [{:.4f} , {:.4f}]".format(epochs,train_loss,train_acc,test_loss,test_acc))
         return test_loss, test_acc
 
 
