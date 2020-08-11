@@ -3,6 +3,7 @@ import numpy as np
 import itertools
 import torch
 import multiprocessing as mp
+import argparse
 
 def genSameFile(args):
     global dict_filedata
@@ -17,13 +18,18 @@ def genDiffFile(args):
     np.save(dir_diff +a[0:-8]+'_'+b[0:-8] ,t)
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input',type=str,help='')
+    parser.add_argument('--output',type=str,help='')
+    args = parser.parse_args()
+
     dict_filename=dict()
     dict_filedata=dict()
 
     #dir_orig = "/home/nas/user/kbh/FaceVerification/original/";
-    dir_orig = "/home/kbh/FacenetDB/database/";
-    dir_same= "data/same/";
-    dir_diff= "data/diff/";
+    dir_orig = args.input +'/'
+    dir_same= args.output + "/same/";
+    dir_diff= args.output + "/diff/";
 
     filenames = os.listdir(dir_orig);
     num_core = mp.cpu_count()
